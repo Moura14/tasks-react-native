@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import { ImageBackground, StyleSheet, Text, View } from 'react-native'
 import commonStyles from '../commonStyles'
+import Task from '../componets/Task'
 
 import moment from 'moment'
 import 'moment/locale/pt-br'
@@ -20,7 +21,8 @@ export default class TaskList extends Component{
                     </View>
                 </ImageBackground>
                 <View style={styles.taskList}>
-                    <Text>TaskList</Text>
+                    <Task desc='Comprar livro' estimateAt={new Date()} doneAt={new Date()}></Task>
+                    <Task desc='Jogar um futevôlei de cria' estimateAt={new Date()} doneAt={null} ></Task>
                 </View>
             </View>
         )
