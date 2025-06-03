@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import { ImageBackground, StyleSheet, Text, View } from 'react-native'
+import commonStyles from '../commonStyles'
 
 import moment from 'moment'
 import 'moment/locale/pt-br'
@@ -14,8 +15,8 @@ export default class TaskList extends Component{
             <View style={styles.container}>
                 <ImageBackground source={require('../../../assets/imgs/today.jpg')} style={styles.background}>
                     <View style={styles.titleBar}>
-                        <Text>Hoje</Text>
-                        <Text>{today}</Text>
+                        <Text style={styles.title}>Hoje</Text>
+                        <Text style={styles.subtitle}>{today}</Text>
                     </View>
                 </ImageBackground>
                 <View style={styles.taskList}>
@@ -41,6 +42,20 @@ const styles = StyleSheet.create({
     titleBar: {
         flex: 1,
         justifyContent: 'flex-end',
-        alignItems: 'center'
+    
+    },
+    title: {
+        fontFamily: commonStyles.fontFamily,
+        color: commonStyles.colors.secondary,
+        fontSize: 50,
+        marginLeft: 20,
+        marginBottom: 20
+    },
+    subtitle: {
+        fontFamily: commonStyles.fontFamily,
+        color: commonStyles.colors.secondary,
+        fontSize: 20,
+        marginLeft: 20,
+        marginBottom: 20
     }
 })
