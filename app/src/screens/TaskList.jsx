@@ -22,13 +22,21 @@ export default class TaskList extends Component{
         desc: 'Jogar um futevôlei de cria',
         estimateAt: new Date(),
         doneAt: null
-    },
-
-
-
+    }
 
 ]
    }
+
+   toggleTask = taskId => {
+    const tasks = [...this.state.tasks]
+    tasks.forEach(task => {
+        if(task.id == taskId){
+            task.doneAt = task.doneAt ? null : new Date()
+        }
+    })
+
+    this.setState({tasks})
+}
 
 
     render(){
@@ -42,12 +50,15 @@ export default class TaskList extends Component{
                     </View>
                 </ImageBackground>
                 <View style={styles.taskList}>
-                   <FlatList data={this.state.tasks} keyExtractor={item => `${item.id}`} renderItem={({item}) => <Task {...item}></Task>}></FlatList>
+                   <FlatList data={this.state.tasks} keyExtractor={item => `${item.id}`} renderItem={({item}) => <Task {...item} toggleTask={this.toggleTask}></Task>}></FlatList>
                 </View>
             </View>
         )
     }
 }
+
+
+
 
 
 
