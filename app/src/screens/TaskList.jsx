@@ -3,6 +3,8 @@ import { FlatList, ImageBackground, Platform, StyleSheet, Text, TouchableOpacity
 import commonStyles from '../commonStyles'
 import Task from '../componets/Task'
 
+import AddTask from './AddTask'
+
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 import moment from 'moment'
@@ -15,6 +17,7 @@ export default class TaskList extends Component{
 
    state = {
     showDoneTask : true,
+    showAddTask: true,
     visibleTask : [],
     tasks: [{
         id: Math.random(),
@@ -68,6 +71,9 @@ export default class TaskList extends Component{
         const today = moment().locale('pt-br').format('ddd, D [de] MMMM')
         return(
             <View style={styles.container}>
+                <AddTask isVisible={this.state.showAddTask} onCancel={() => this.setState({showAddTask: false})}>
+
+                </AddTask>
                 <ImageBackground source={require('../../../assets/imgs/today.jpg')} style={styles.background}>
                 <View style={styles.iconBar}>
                    <TouchableOpacity onPress={this.toggleFilter}>
