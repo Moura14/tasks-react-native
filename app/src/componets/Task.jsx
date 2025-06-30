@@ -21,7 +21,7 @@ export default props => {
 
     const getRightContent = () => {
         return (
-            <TouchableOpacity style={styles.right}>
+            <TouchableOpacity style={styles.right} onPress={() => props.onDelete && props.onDelete(props.id)}>
                 <Icon name='trash' size={30} color='#FFF'></Icon>
             </TouchableOpacity>
         )
@@ -30,7 +30,7 @@ export default props => {
      const getLeftContent = () => {
         return (
             <View style={styles.left}>
-                <Icon name='trash' size={20} color='#FFF' style={styles.excludeIcon}></Icon>
+                <Icon name='trash' size={20} color='#FFF' style={styles.excludeIcon} ></Icon>
                 <Text style={styles.excludeText}>Excluir</Text>
             </View>
         )
@@ -39,7 +39,7 @@ export default props => {
 
     return (
        <GestureHandlerRootView style={{flex: 1}}>
-            <Swipeable renderRightActions={getRightContent} renderLeftActions={getLeftContent}>
+            <Swipeable renderRightActions={getRightContent} renderLeftActions={getLeftContent} onSwipeableLeftOpen={() => props.onDelete && props.onDelete(props.id)}>
                   <View style={styles.container}>
             <TouchableWithoutFeedback onPress={() => props.toggleTask(props.id)}>
                  <View style={styles.checkContainer}>

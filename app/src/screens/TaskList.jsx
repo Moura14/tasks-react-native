@@ -83,6 +83,11 @@ addTask = (newTask) => {
     this.setState({tasks, showAddTask: false}, this.filterTasks)
 }
 
+    deleteTask = id => {
+        const tasks = this.state.tasks.filter(task => task.id !== id)
+        this.setState({tasks}, this.filterTasks)
+    }
+
 
     render(){
         const today = moment().locale('pt-br').format('ddd, D [de] MMMM')
@@ -103,7 +108,7 @@ addTask = (newTask) => {
                     </View>
                 </ImageBackground>
                 <View style={styles.taskList}>
-                   <FlatList data={this.state.visibleTask} keyExtractor={item => `${item.id}`} renderItem={({item}) => <Task {...item} toggleTask={this.toggleTask}></Task>}></FlatList>
+                   <FlatList data={this.state.visibleTask} keyExtractor={item => `${item.id}`} renderItem={({item}) => <Task {...item} toggleTask={this.toggleTask} onDelete={this.deleteTask}></Task>}></FlatList>
                 </View>
                 <TouchableOpacity style={styles.addButton} activeOpacity={0.7} onPress={() => this.setState({showAddTask: true })}> 
                     <Icon name='plus' size={20} color={commonStyles.colors.secondary}></Icon>
