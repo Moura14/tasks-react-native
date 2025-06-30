@@ -10,32 +10,29 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import moment from 'moment'
 import 'moment/locale/pt-br'
 
+import AsyncStoreage from '@react-native-async-storage/async-storage'
+
+
+const initialState = {
+    showDoneTask : true,
+    showAddTask: false,
+    visibleTask : [],
+    tasks: []
+}
+
 
 
 
 export default class TaskList extends Component{
 
    state = {
-    showDoneTask : true,
-    showAddTask: false,
-    visibleTask : [],
-    tasks: [{
-        id: Math.random(),
-        desc: 'Comprar livro',
-        estimateAt: new Date(),
-        doneAt: new Date()
-    }, {
-        id: Math.random(),
-        desc: 'Jogar um futevôlei de cria',
-        estimateAt: new Date(),
-        doneAt: null
-    }
-
-]
+        ...initialState
    }
 
-   componentDidMount = () => {
-        this.filterTasks()
+   componentDidMount = async() => {
+     const stateString =  await AsyncStoreage.getItem('state')
+    const state = JSON.parse(stateString) || initialState
+    this.setState(state, this.filterTasks)
    }
 
    toggleFilter = () => {
@@ -53,6 +50,7 @@ export default class TaskList extends Component{
     }
 
     this.setState({visibleTask})
+    AsyncStoreage.setItem('state', JSON.stringify(this.state))
    }
 
    toggleTask = taskId => {
