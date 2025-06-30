@@ -1,9 +1,11 @@
-import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome'
-import commonStyles from '../commonStyles'
+import { StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import commonStyles from '../commonStyles';
 
-import moment from 'moment'
-import 'moment/locale/pt-br'
+import moment from 'moment';
+import 'moment/locale/pt-br';
 
 
 
@@ -16,10 +18,20 @@ export default props => {
     const date = props.doneAt ? props.doneAt : props.estimateAt
     const formatetedDate = moment(date).locale('pt-br')
     .format('ddd, D [de] MMMM')
+
+    const getRightContent = () => {
+        return (
+            <TouchableOpacity style={styles.right}>
+                <Icon name='trash' size={30} color='#FFF'></Icon>
+            </TouchableOpacity>
+        )
+    }
         
 
     return (
-        <View style={styles.container}>
+       <GestureHandlerRootView style={{flex: 1}}>
+            <Swipeable renderRightActions={getRightContent}>
+                  <View style={styles.container}>
             <TouchableWithoutFeedback onPress={() => props.toggleTask(props.id)}>
                  <View style={styles.checkContainer}>
                 {getCheckView(props.doneAt)}
@@ -32,6 +44,9 @@ export default props => {
             
         
         </View>
+            </Swipeable>
+       </GestureHandlerRootView>
+        
     )
 }
 
@@ -86,5 +101,13 @@ const styles = StyleSheet.create({
         fontFamily: commonStyles.fontFamily,
         color: commonStyles.colors.subText,
         fontSize: 12
+    },
+    right: {
+       backgroundColor: 'red' ,
+       flexDirection: 'row',
+       alignItems: 'center',
+       justifyContent: 'flex-end',
+       paddingHorizontal: 20
     }
+
 })

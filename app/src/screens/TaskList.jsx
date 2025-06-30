@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { Alert, FlatList, ImageBackground, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, FlatList, ImageBackground, Platform, StyleSheet, Text, TouchableOpacity, View, } from 'react-native'
 import commonStyles from '../commonStyles'
 import Task from '../componets/Task'
 
