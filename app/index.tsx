@@ -1,5 +1,5 @@
-import TaskList from '../app/src/screens/TaskList';
+import Auth from '../app/src/screens/Auth';
 
 export default function App(){
-  return <TaskList></TaskList>
+  return <Auth></Auth>
 }
