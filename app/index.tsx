@@ -1,5 +1,14 @@
-import Auth from '../app/src/screens/Auth';
+import React, { useState } from 'react';
+import Navigator from './src/Navigator';
 
 export default function App(){
-  return <Auth></Auth>
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+
+  return (
+
+        <Navigator isAuthenticated ={isAuthenticated}></Navigator>
+    
+      
+  )
 }
