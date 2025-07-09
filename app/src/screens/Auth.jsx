@@ -8,8 +8,11 @@ import commonStyles from '../commonStyles';
 export default class Auth extends Component {
 
     state = {
+        name : '',
         email: '',
-        password: ''
+        password: '',
+        confirmPassword: '',
+        stateNew: false
     }
 
     render() {
@@ -19,13 +22,24 @@ export default class Auth extends Component {
             style={styles.background}>
                 <Text style={styles.title}>Tasks</Text>
                 <View style={styles.formContainer}>
+                    <Text style={styles.subtitle}>{this.state.stateNew ? 'Crie a sua conta' : 'Informe seus dados'}</Text>
+                    {this.state.stateNew &&
+                        <TextInput placeholder='Nome' value={this.state.name} style={[commonStyles.input, styles.input]}
+                    onChangeText={name => this.setState({name}) }></TextInput>
+                    }
                     <TextInput placeholder='E-mail' value={this.state.email} style={[commonStyles.input, styles.input]}
                     onChangeText={email => this.setState({email}) }></TextInput>
                     <TextInput placeholder='Senha' value={this.state.password} style={[commonStyles.input, styles.input]}
+                    secureTextEntry={true}
                     onChangeText={password => this.setState({password}) }></TextInput>
+                    {this.state.stateNew &&
+                        <TextInput placeholder='Confirmar Senha' value={this.state.confirmPassword} style={[commonStyles.input, styles.input]}
+                        secureTextEntry={true}
+                        onChangeText={confirmPassword => this.setState({confirmPassword})}></TextInput>
+                    }
                     <TouchableOpacity>
                         <View style={styles.button}>
-                            <Text style={styles.buttonText}>Entrar</Text>
+                            <Text style={styles.buttonText}>{this.state.stateNew ? 'Registrar' : 'Entrar'}</Text>
                         </View>
                     </TouchableOpacity>
                     
@@ -46,6 +60,13 @@ const styles = StyleSheet.create({
         fontFamily: commonStyles.fontFamily,
         color: commonStyles.colors.secondary ,
         fontSize: 50,
+        marginBottom: 10
+    },
+    subtitle: {
+        fontFamily: commonStyles.fontFamily,
+        color: '#FFF',
+        fontSize: 20,
+        textAlign: 'center',
         marginBottom: 10
     },
     formContainer: {
