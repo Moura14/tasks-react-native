@@ -1,15 +1,18 @@
 import { StyleSheet, TextInput, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-
 export default props => {
     return (
-        <View style={[styles.container, props.style]}>
-            <Icon name={props.icon} size={20} style={styles.icon}></Icon>
-            <TextInput {...props} style={styles.input}></TextInput>
+        <View style={[styles.container]}>
+            <Icon name={props.icon} size={20} style={styles.icon} />
+            <TextInput
+                {...props}
+                style={[styles.input, props.style]} // <- estilo externo aplicado aqui
+                placeholderTextColor="#999" // também opcional
+            />
         </View>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -22,10 +25,11 @@ const styles = StyleSheet.create({
     },
     icon: {
         color: '#333',
-        marginLeft: 20
+        marginLeft: 20,
     },
     input: {
         marginLeft: 20,
-        width: '70%'
-    }
-})
+        width: '70%',
+       
+    },
+});
