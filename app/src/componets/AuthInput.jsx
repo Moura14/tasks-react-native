@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         flexDirection: 'row',
         alignItems: 'center',
+        marginTop: 10,
     },
     icon: {
         color: '#333',
