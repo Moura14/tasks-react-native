@@ -76,7 +76,7 @@ export default class Auth extends Component {
                 <View style={styles.formContainer}>
                     <Text style={styles.subtitle}>{this.state.stateNew ? 'Crie a sua conta' : 'Informe seus dados'}</Text>
                     {this.state.stateNew &&
-                        <AuthInput icon='user' value={this.state.name} style={[commonStyles.input, styles.input]}
+                        <AuthInput icon='user' placeholder='Nome' value={this.state.name} style={[commonStyles.input, styles.input]}
                     onChangeText={name => this.setState({name}) }></AuthInput>
                     }
                     <AuthInput icon='at' placeholder='E-mail' value={this.state.email} style={[commonStyles.input, styles.input]}
@@ -132,8 +132,7 @@ const styles = StyleSheet.create({
         width: '90%'
     },
     input: {
-        marginTop: 10,
-        backgroundColor: "#FFF",
+    
         padding: Platform.OS == 'ios' ? 15 : 10,
     
     },

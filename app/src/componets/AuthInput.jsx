@@ -8,7 +8,7 @@ export default props => {
             <TextInput
                 {...props}
                 style={[styles.input, props.style]} // <- estilo externo aplicado aqui
-                placeholderTextColor="#999" // também opcional
+             // também opcional
             />
         </View>
     );
