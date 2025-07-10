@@ -7,7 +7,7 @@ export default function App(){
 
   return (
 
-        <Navigator isAuthenticated ={isAuthenticated}></Navigator>
+        <Navigator></Navigator>
     
       
   )

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, ImageBackground, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ImageBackground, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import backgroundImage from '../../../assets/imgs/login.jpg';
 import commonStyles from '../commonStyles';
@@ -28,7 +28,7 @@ export default class Auth extends Component {
         if(this.state.stateNew){
             this.singup()
         }else{
-            Alert.alert('Sucesso!', 'Logar')
+            this.singIn()
         }
     }
 
@@ -52,6 +52,19 @@ export default class Auth extends Component {
                 confirmPassword: this.state.confirmPassword
             })
         }
+    }
+
+    singIn = async () => {
+        try{
+          const res =  await axios.post(`${server}/signin`, {
+                email: this.state.email,
+                password: this.state.password
+            })
+            axios.defaults.headers.common['Authorization'] = `bearer ${res.token}`
+        }catch(e){
+            showError(e)
+        }
+        this.props.navigation.navigate('TasksList')
     }
 
     render() {
