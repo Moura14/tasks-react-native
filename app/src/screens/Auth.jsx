@@ -64,7 +64,7 @@ export default class Auth extends Component {
         }catch(e){
             showError(e)
         }
-        this.props.navigation.navigate('TasksList')
+        this.props.navigation.navigate('Home')
     }
 
     render() {
