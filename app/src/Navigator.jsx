@@ -2,15 +2,25 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
  
+import commonStyles from './commonStyles';
 import Auth from './screens/Auth';
 import TaskList from './screens/TaskList';
+
  
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
  
 const DrawerNavigator = props => {
     return (
-        <Drawer.Navigator>
+        <Drawer.Navigator screenOptions={{
+          drawerLabelStyle: {
+            fontFamily: commonStyles.fontFamily,
+            fontSize: 20,
+            fontWeight: 'normal',
+            activeTintColor: '#080',
+          },
+          
+        }}>
             <Drawer.Screen name="Today" options={{ title: 'Hoje' }}>
                 {props => <TaskList {...props} title='Hoje' daysAhead={0} />}
             </Drawer.Screen>

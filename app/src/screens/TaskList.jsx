@@ -116,7 +116,7 @@ addTask = async (newTask) => {
                 <AddTask isVisible={this.state.showAddTask} onCancel={() => this.setState({showAddTask: false})} onSave={this.addTask}>
 
                 </AddTask>
-                <ImageBackground source={require('../../../assets/imgs/today.jpg')} style={styles.background}>
+                <ImageBackground sou rce={require('../../../assets/imgs/today.jpg')} style={styles.background}>
                 <View style={styles.iconBar}>
                    <TouchableOpacity onPress={this.toggleFilter}>
                         <Icon name={this.state.showDoneTask ? 'eye' : 'eye-slash'} size={20} color={commonStyles.colors.secondary}></Icon>
