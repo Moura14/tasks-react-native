@@ -10,6 +10,11 @@ import commonStyles from '../commonStyles'
 import Task from '../componets/Task'
 import AddTask from './AddTask'
 
+import monthImage from '../../../assets/imgs/month.jpg'
+import todayImage from '../../../assets/imgs/today.jpg'
+import tomorrowImage from '../../../assets/imgs/tomorrow.jpg'
+import weekImage from '../../../assets/imgs/week.jpg'
+
 
 const initialState = {
     showDoneTask : true,
@@ -108,6 +113,24 @@ addTask = async (newTask) => {
        }
     }
 
+    getImage = () => {
+        switch(this.props.daysAhead){
+            case 0: return todayImage
+            case 1: return tomorrowImage
+            case 7: return weekImage
+            case 30: return monthImage
+        }
+    }
+
+    getColor = () => {
+        switch(this.props.daysAhead){
+            case 0: return commonStyles.colors.today
+            case 1: return commonStyles.colors.tomorrow
+            case 7: return commonStyles.colors.week
+            case 30: return commonStyles.colors.month
+        }
+    }
+
 
     render(){
         const today = moment().locale('pt-br').format('ddd, D [de] MMMM')
@@ -116,7 +139,7 @@ addTask = async (newTask) => {
                 <AddTask isVisible={this.state.showAddTask} onCancel={() => this.setState({showAddTask: false})} onSave={this.addTask}>
 
                 </AddTask>
-                <ImageBackground sou rce={require('../../../assets/imgs/today.jpg')} style={styles.background}>
+                <ImageBackground source={this.getImage()} style={styles.background}>
                 <View style={styles.iconBar}>
                    <TouchableOpacity onPress={this.toggleFilter}>
                         <Icon name={this.state.showDoneTask ? 'eye' : 'eye-slash'} size={20} color={commonStyles.colors.secondary}></Icon>
@@ -130,7 +153,7 @@ addTask = async (newTask) => {
                 <View style={styles.taskList}>
                    <FlatList data={this.state.visibleTask} keyExtractor={item => `${item.id}`} renderItem={({item}) => <Task {...item} toggleTask={this.toggleTask} onDelete={this.deleteTask}></Task>}></FlatList>
                 </View>
-                <TouchableOpacity style={styles.addButton} activeOpacity={0.7} onPress={() => this.setState({showAddTask: true })}> 
+                <TouchableOpacity style={[styles.addButton, {backgroundColor: this.getColor()}]} activeOpacity={0.7} onPress={() => this.setState({showAddTask: true })}> 
                     <Icon name='plus' size={20} color={commonStyles.colors.secondary}></Icon>
                 </TouchableOpacity>
             </View>
@@ -186,7 +209,6 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         borderRadius: 25,
-        backgroundColor: commonStyles.colors.today,
         justifyContent: 'center',
         alignItems: 'center'
     }

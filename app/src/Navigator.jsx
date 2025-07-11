@@ -16,8 +16,7 @@ const DrawerNavigator = props => {
           drawerLabelStyle: {
             fontFamily: commonStyles.fontFamily,
             fontSize: 20,
-            fontWeight: 'normal',
-            activeTintColor: '#080',
+          
           },
           
         }}>
