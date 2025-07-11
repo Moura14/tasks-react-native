@@ -10,8 +10,8 @@ import { server, showError, showSuccess } from '../common';
 
 const initialState = {
         name : '',
-        email: '',
-        password: '',
+        email: 'thierry2@gmail.com',
+        password: '123456',
         confirmPassword: '',
         stateNew: false
 }
@@ -60,7 +60,7 @@ export default class Auth extends Component {
                 email: this.state.email,
                 password: this.state.password
             })
-            axios.defaults.headers.common['Authorization'] = `bearer ${res.token}`
+            axios.defaults.headers.common['Authorization'] = `bearer ${res.data.token}`
         }catch(e){
             showError(e)
         }

@@ -1,16 +1,14 @@
-import { Component } from 'react'
-import { Alert, FlatList, ImageBackground, Platform, StyleSheet, Text, TouchableOpacity, View, } from 'react-native'
-import commonStyles from '../commonStyles'
-import Task from '../componets/Task'
-
-import AddTask from './AddTask'
-
-import Icon from 'react-native-vector-icons/FontAwesome'
-
+import AsyncStoreage from '@react-native-async-storage/async-storage'
+import axios from 'axios'
 import moment from 'moment'
 import 'moment/locale/pt-br'
-
-import AsyncStoreage from '@react-native-async-storage/async-storage'
+import { Component } from 'react'
+import { Alert, FlatList, ImageBackground, Platform, StyleSheet, Text, TouchableOpacity, View, } from 'react-native'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import { server, showError } from '../common'
+import commonStyles from '../commonStyles'
+import Task from '../componets/Task'
+import AddTask from './AddTask'
 
 
 const initialState = {
@@ -21,8 +19,6 @@ const initialState = {
 }
 
 
-
-
 export default class TaskList extends Component{
 
    state = {
@@ -31,10 +27,25 @@ export default class TaskList extends Component{
 
    componentDidMount = async() => {
      const stateString =  await AsyncStoreage.getItem('state')
-    const state = JSON.parse(stateString) || initialState
-    this.setState(state, this.filterTasks)
+    const savedState = JSON.parse(stateString) || initialState
+    this.setState({
+        showDoneTask: savedState.showDoneTask
+    }, this.filterTasks),
+
+    this.loadTasks()
    }
 
+   loadTasks = async () => {
+        try{
+            const maxDate = moment().format('YYYY-MM-DD 23:59:59')
+            const res = await axios.get(`${server}/tasks?date=${maxDate}`)
+            this.setState({tasks: res.data}, this.filterTasks)
+        }catch(e){
+            showError(e)
+            console.log(res)
+        }
+   }
+    
    toggleFilter = () => {
         this.setState({showDoneTask: !this.state.showDoneTask}, this.filterTasks)
    }
@@ -50,7 +61,9 @@ export default class TaskList extends Component{
     }
 
     this.setState({visibleTask})
-    AsyncStoreage.setItem('state', JSON.stringify(this.state))
+    AsyncStoreage.setItem('state', JSON.stringify({
+        showDoneTask: this.state.showAddTask
+    }))
    }
 
    toggleTask = taskId => {
